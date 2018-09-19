@@ -2,6 +2,7 @@ package com.mfalle.recipeapp;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
 import java.util.ArrayList;
 
 public class Fridge extends AppCompatActivity implements MyAdapter.ItemClickListener {
@@ -25,6 +27,7 @@ public class Fridge extends AppCompatActivity implements MyAdapter.ItemClickList
     private Button button;
     private EditText input;
     final Context context = this;
+    ArrayList<String> animalNames = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +37,13 @@ public class Fridge extends AppCompatActivity implements MyAdapter.ItemClickList
         setSupportActionBar(toolbar);
 
         // data to populate the RecyclerView with
-        ArrayList<String> animalNames = new ArrayList<>();
-        animalNames.add("Horse");
-        animalNames.add("Cow");
-        animalNames.add("Camel");
-        animalNames.add("Sheep");
-        animalNames.add("Goat");
-
+         final ArrayList<String> animalNames = new ArrayList<>();
+        animalNames.add("Chicken");
+        animalNames.add("Carrot");
+        animalNames.add("Onion");
+        animalNames.add("Egg");
+        animalNames.add("Beef");
+        animalNames.add("Pepper");
         // set up the RecyclerView
         RecyclerView recyclerView = findViewById(R.id.rvAnimals);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -78,6 +81,10 @@ public class Fridge extends AppCompatActivity implements MyAdapter.ItemClickList
                                         // get user input and set it to result
                                         // edit text
                                         input.setText(userInput.getText());
+                                        String result = input.getText().toString();
+                                        int insertIndex = 1;
+                                        animalNames.add(insertIndex, result);
+                                        adapter.notifyItemInserted(insertIndex);
                                     }
                                 })
                         .setNegativeButton("Cancel",
@@ -95,10 +102,20 @@ public class Fridge extends AppCompatActivity implements MyAdapter.ItemClickList
 
             }
         });
+
     }
 
     @Override
     public void onItemClick(View view, int position) {
         Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
     }
+
+    public void goToSearch(View view)
+    {
+        Intent i = new Intent(context, Search.class);
+        i.putExtra("food", animalNames);
+        context.startActivity(i);
+    }
 }
+
+

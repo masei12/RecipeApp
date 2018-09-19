@@ -6,4 +6,5 @@
     <string name="search">Search</string>
     <string name="title_activity_fridge">Fridge</string>
     <string name="add_item">Add Item</string>
+    <string name="title_activity_search">Search</string>
 </resources>

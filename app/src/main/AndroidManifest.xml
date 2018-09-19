@@ -24,6 +24,10 @@
         <activity
             android:name=".Fridge"
             android:label="@string/title_activity_fridge"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Search"
+            android:label="@string/title_activity_search"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
