@@ -43,14 +43,15 @@ public class Search extends AppCompatActivity {
         public void gimmeFood()  {
         new Thread(new Runnable() {
            @Override
-            public void run() throws IOException {
+            public void run() {
                 final StringBuilder builder = new StringBuilder();
-
-                Document doc = Jsoup.connect("https://www.allrecipes.com/recipes/1947/everyday-cooking/quick-and-easy/?page=10").get();
+            try {
+                Document doc = Jsoup.connect("https://www.allrecipes.com/?page=3").get();
                 Elements recipe = doc.select("article");
-                for (Element r : recipe) {
 
-                    if (!r.select("h3").text().equals("") && !r.select("div.rec-card__description").text().equals("")) {// gets
+
+                for (Element r : recipe) {
+                    if (!r.select("h3").text().equals("") && !r.select("div.fixed-recipe-card__info").text().equals("")) {// gets
                         if (r.select("a").first().attr("href").contains("/recipe/")) {
 
                             String title = r.select("h3").text();
@@ -61,24 +62,29 @@ public class Search extends AppCompatActivity {
 
                             String recipeLinkParse = (link);
 
-                    /////////////////////////////////////////////////////////////////////////////////////////////////////
-                    try {
 
-                        Document doc2 = Jsoup.connect("http://allrecipes.com/" + recipeLinkParse).get();
-
-                    }
+                                builder.append("\n").append("Recipe : ").append(title).append("\n").append("Link : ").append(link);
+                            }
 
 
+                            /////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-                    catch (IOException e) {
-                        System.out.println(e);
-                    }
-                }
+                        }
+
+
+                    }}
+             catch (IOException e) {
+                builder.append("Error : ").append(e.getMessage()).append("\n");
+        }
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                result.setText(builder.toString());
             }
+        });
         }
-        }
-});}}
+}).start();}}
 
 
 
