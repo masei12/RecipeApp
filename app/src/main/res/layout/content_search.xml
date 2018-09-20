@@ -8,4 +8,12 @@
     tools:context=".Search"
     tools:showIn="@layout/activity_search">
 
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="354dp"
+        android:layout_height="441dp"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="10dp"
+        tools:layout_editor_absoluteY="9dp"
+        android:autoLink="web"/>
 </android.support.constraint.ConstraintLayout>

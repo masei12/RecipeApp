@@ -37,7 +37,6 @@ public class Fridge extends AppCompatActivity implements MyAdapter.ItemClickList
         setSupportActionBar(toolbar);
 
         // data to populate the RecyclerView with
-         final ArrayList<String> animalNames = new ArrayList<>();
         animalNames.add("Chicken");
         animalNames.add("Carrot");
         animalNames.add("Onion");
@@ -53,6 +52,8 @@ public class Fridge extends AppCompatActivity implements MyAdapter.ItemClickList
 
         button = (Button) findViewById(R.id.button3);
         input = (EditText) findViewById(R.id.editTextResult);
+
+
 
         button.setOnClickListener(new View.OnClickListener() {
 
@@ -112,9 +113,11 @@ public class Fridge extends AppCompatActivity implements MyAdapter.ItemClickList
 
     public void goToSearch(View view)
     {
-        Intent i = new Intent(context, Search.class);
-        i.putExtra("food", animalNames);
-        context.startActivity(i);
+        Intent i = new Intent(Fridge.this, Search.class);
+        Bundle b = new Bundle();
+        b.putStringArrayList("food", animalNames);
+        i.putExtras(b);
+        startActivity(i);
     }
 }
 
